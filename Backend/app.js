@@ -11,6 +11,8 @@ app.use(cors({
 require("dotenv").config();
 app.use(express.json());
 app.use("/api/auth", require("./routes/authroutes"));
+app.use("/api/listings", require("./routes/listingroutes"));
+
 
 
 
