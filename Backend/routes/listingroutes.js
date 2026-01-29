@@ -1,27 +1,36 @@
 const express = require("express");
 const Listing = require("../model/Listing.model");
 const auth = require("../middleware/auth");
+const upload = require("../middleware/upload");
+
 
 const router = express.Router();
 
 
 // CREATE (tenant/admin)
-router.post("/", auth, async (req, res) => {
+router.post("/", auth, upload.array("images", 5), async (req, res) => {
   try {
     if (req.user.role !== "owner" && req.user.role !== "admin") {
       return res.status(403).json({ message: "Not allowed" });
     }
 
+    const imageUrls = req.files.map(file => file.path);
+
     const listing = await Listing.create({
       ...req.body,
+      images: imageUrls,
+      amenities: JSON.parse(req.body.amenities),
       owner: req.user.id
     });
 
     res.status(201).json(listing);
+
   } catch (err) {
+    console.log(err);
     res.status(500).json({ message: err.message });
   }
 });
+
 
 
 // GET ALL

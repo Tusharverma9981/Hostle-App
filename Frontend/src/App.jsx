@@ -8,6 +8,8 @@ import ProtectedRoute from "./pages/ProtectedRoute";
 import AddListing from "./pages/AddListing";
 import EditListing from "./pages/EditListing";
 import ListingDetail from "./pages/Listingdetails";
+import Contact from "./pages/Contact";
+import About from "./pages/About";
 
 function App() {
   
@@ -16,6 +18,9 @@ function App() {
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<About />} />
+
         <Route path="/" element={
         <ProtectedRoute>
             <Home/>
