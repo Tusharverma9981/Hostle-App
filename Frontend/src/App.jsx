@@ -10,6 +10,9 @@ import EditListing from "./pages/EditListing";
 import ListingDetail from "./pages/Listingdetails";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 function App() {
   
@@ -22,20 +25,23 @@ function App() {
         <Route path="/about" element={<About />} />
 
         <Route path="/" element={
-        <ProtectedRoute>
+        
             <Home/>
-        </ProtectedRoute>
+      
         }  />
         <Route
           path="/addlisting"
          element={
-          <AddListing />
+          <ProtectedRoute> <AddListing /></ProtectedRoute>
+         
       }
       />
           <Route
         path="/editlisting/:id"
         element={
+        <ProtectedRoute> 
             <EditListing />
+            </ProtectedRoute>
         }
       />
           
@@ -47,7 +53,9 @@ function App() {
       />
 
       </Routes>
+      <ToastContainer position="top-right" autoClose={2000} />
     </BrowserRouter>
+    
   );
 }
 

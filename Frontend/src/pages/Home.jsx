@@ -22,6 +22,10 @@ const Home = () => {
     fetchListings();
   }, []);
 
+  const user = JSON.parse(localStorage.getItem("user"));
+const role = user?.role;
+
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
@@ -61,19 +65,23 @@ const Home = () => {
               </a>
             </div>
 
-            {/* Right Side Buttons */}
-            <div className="flex items-center space-x-4">
-              <button className="hidden md:block text-gray-700 hover:text-indigo-600 font-medium transition-colors">
+           {/* Right Side Buttons */}
+           
+            
+              <div className="flex items-center space-x-4">
+                <button onClick={() => navigate(`/login`)} className="hidden md:block text-gray-700 hover:text-indigo-600 font-medium transition-colors">
                 Sign In
               </button>
+              {role === "owner" && (
               <button
                 onClick={() => navigate(`/addlisting`)}
                 className="bg-indigo-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-indigo-700 transition-all shadow-md hover:shadow-lg"
               >
                 List Property
               </button>
-            </div>
-
+           
+             )}
+             </div>
             {/* Mobile Menu Button */}
             <button className="md:hidden text-gray-700">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
+import ReviewDetail from "./Review";
+import { toast } from "react-toastify";
 
 const ListingDetail = () => {
   const { id } = useParams();
@@ -35,13 +37,17 @@ const ListingDetail = () => {
         }
       });
 
-      alert("Deleted!");
+      toast.success("Deleted!");
       navigate("/");
 
     } catch (err) {
-      alert("Delete failed");
+      toast.error("Delete failed");
     }
   };
+
+  const user = JSON.parse(localStorage.getItem("user"));
+const role = user?.role;
+
 
   if (loading) {
     return (
@@ -177,6 +183,7 @@ const ListingDetail = () => {
                 ))}
               </div>
             </div>
+            <ReviewDetail/>
 
             {/* Owner Info */}
             <div className="bg-white rounded-2xl shadow-lg p-8">
@@ -205,9 +212,11 @@ const ListingDetail = () => {
               </div>
 
               {/* Contact Button */}
+               {role === "user" && (
               <button className="w-full bg-indigo-600 text-white py-4 rounded-lg text-lg font-semibold hover:bg-indigo-700 transition-all shadow-md hover:shadow-lg mb-4">
                 Contact Owner
               </button>
+               )}
 
               <div className="border-t pt-6 mb-6">
                 <h3 className="font-semibold text-gray-800 mb-3 text-lg">Quick Info</h3>
@@ -228,7 +237,8 @@ const ListingDetail = () => {
               </div>
 
               {/* Action Buttons */}
-              <div className="border-t pt-6 space-y-3">
+              {role === "owner" && ( 
+                <div className="border-t pt-6 space-y-3">
                 <button
                   onClick={() => navigate(`/editlisting/${listing._id}`)}
                   className="w-full bg-yellow-500 text-white py-3 rounded-lg font-semibold hover:bg-yellow-600 transition-all flex items-center justify-center"
@@ -249,6 +259,8 @@ const ListingDetail = () => {
                   Delete Listing
                 </button>
               </div>
+              )}
+              
             </div>
           </div>
         </div>

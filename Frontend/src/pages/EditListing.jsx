@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../api/axios";
+import { toast } from "react-toastify";
 
 const EditListing = () => {
   const { id } = useParams();
@@ -60,11 +61,11 @@ const EditListing = () => {
         }
       );
 
-      alert("Listing updated!");
+      toast.success("Listing updated!");
       navigate("/");
 
     } catch (err) {
-      alert("Update failed");
+      toast.error("Update failed");
     }
   };
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const AddListing = () => {
   const navigate = useNavigate();
@@ -60,12 +61,12 @@ const AddListing = () => {
         }
       });
 
-      alert("Listing added successfully!");
+      toast.success("Listing added successfully!");
       navigate("/");
 
     } catch (err) {
       console.log(err);
-      alert(err.response?.data?.message || "Error creating listing");
+      toast.error(err.response?.data?.message || "Error creating listing");
     }
   };
 

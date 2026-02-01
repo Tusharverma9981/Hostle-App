@@ -1,6 +1,8 @@
 import { useState } from "react";
 import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -22,12 +24,12 @@ const Login = () => {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
-      alert("Login successful!");
+      toast.success("Logged in successfully!");
       navigate("/");
       console.log(res.data);
 
     } catch (err) {
-      alert(err.response?.data?.message || "Login failed");
+      toast.error(err.response?.data?.message || "Login failed");
     }
   };
 
