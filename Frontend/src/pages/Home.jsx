@@ -24,7 +24,13 @@ const Home = () => {
 
   const user = JSON.parse(localStorage.getItem("user"));
 const role = user?.role;
-
+ 
+const handleLogout = () => {
+    localStorage.removeItem("token");   
+    localStorage.removeItem("user");    
+    
+    navigate("/login");                
+  };
 
   if (loading) {
     return (
@@ -68,10 +74,20 @@ const role = user?.role;
            {/* Right Side Buttons */}
            
             
+           
+
               <div className="flex items-center space-x-4">
+                 {user ? (
+              <div className="flex items-center space-x-4">
+                <button onClick={handleLogout} className="bg-red-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-red-700 transition-all shadow-md hover:shadow-lg">
+                  Logout
+                </button>
+              </div>
+            ) : (
                 <button onClick={() => navigate(`/login`)} className="hidden md:block text-gray-700 hover:text-indigo-600 font-medium transition-colors">
-                Sign In
+                Sign In 
               </button>
+            )}
               {role === "owner" && (
               <button
                 onClick={() => navigate(`/addlisting`)}
@@ -79,8 +95,10 @@ const role = user?.role;
               >
                 List Property
               </button>
+              
            
              )}
+            
              </div>
             {/* Mobile Menu Button */}
             <button className="md:hidden text-gray-700">
